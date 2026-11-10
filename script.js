@@ -1,6 +1,25 @@
-const message = "Naya saal toh aa gaya, par tere bina baat ke lecture dena aur har baat pe chashma thik karke gussa hona bilkul nahi badla! 🤓😂";
+const message = "Sach bolu toh 2026 mein tera har baat pe gussa karna, mujhe padhai ke liye daantna aur har choti baat pe lecture dena sabse pyaari cheez thi... Shayad humari nok-jhok na ho toh din hi nahi banta. Tu bas aise hi hasti reh, apne sapne poore kar, aur baaki sab theek hai. Happy New Year, Chasmish! 🥺✨";
 let index = 0;
-const speed = 40;
+const speed = 35;
+let isOpen = false;
+
+function openCard() {
+    if (isOpen) return;
+    isOpen = true;
+
+    // Flip the 3D Card
+    document.getElementById("greetingCard").classList.add("open");
+
+    // Play Music
+    const music = document.getElementById("bgMusic");
+    music.play().catch(e => console.log("Audio play blocked", e));
+
+    // Trigger Fireworks Burst
+    triggerBurst();
+
+    // Start Typewriter Effect after card flips
+    setTimeout(typeWriter, 600);
+}
 
 function typeWriter() {
     if (index < message.length) {
@@ -10,28 +29,7 @@ function typeWriter() {
     }
 }
 
-window.onload = () => {
-    typeWriter();
-    initFireworks();
-};
-
-function startExperience() {
-    // Play background music
-    const music = document.getElementById("bgMusic");
-    music.play().catch(e => console.log("Audio play blocked", e));
-
-    // Reveal secret box and trigger massive fireworks
-    const secretBox = document.getElementById("secretBox");
-    secretBox.style.display = "block";
-    
-    // Change button text
-    const btn = document.getElementById("startBtn");
-    btn.innerHTML = "Enjoy The Music! ✨";
-    btn.style.background = "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)";
-
-    triggerBurst();
-}
-
+// Canvas Fireworks Engine
 const canvas = document.getElementById('fireworksCanvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -49,11 +47,11 @@ class Particle {
         this.y = y;
         this.color = color;
         this.velocity = {
-            x: (Math.random() - 0.5) * 7,
-            y: (Math.random() - 0.5) * 7
+            x: (Math.random() - 0.5) * 8,
+            y: (Math.random() - 0.5) * 8
         };
         this.alpha = 1;
-        this.friction = 0.95;
+        this.friction = 0.94;
     }
 
     draw() {
@@ -71,7 +69,7 @@ class Particle {
         this.velocity.y *= this.friction;
         this.x += this.velocity.x;
         this.y += this.velocity.y;
-        this.alpha -= 0.015;
+        this.alpha -= 0.012;
     }
 }
 
@@ -80,7 +78,7 @@ function triggerBurst() {
     const x = window.innerWidth / 2;
     const y = window.innerHeight / 3;
     
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 100; i++) {
         const color = colors[Math.floor(Math.random() * colors.length)];
         particles.push(new Particle(x, y, color));
     }
@@ -102,3 +100,7 @@ function initFireworks() {
     }
     animate();
 }
+
+window.onload = () => {
+    initFireworks();
+};
