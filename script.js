@@ -15,9 +15,20 @@ window.onload = () => {
     initFireworks();
 };
 
-function showSecret() {
+function startExperience() {
+    // Play background music
+    const music = document.getElementById("bgMusic");
+    music.play().catch(e => console.log("Audio play blocked", e));
+
+    // Reveal secret box and trigger massive fireworks
     const secretBox = document.getElementById("secretBox");
     secretBox.style.display = "block";
+    
+    // Change button text
+    const btn = document.getElementById("startBtn");
+    btn.innerHTML = "Enjoy The Music! ✨";
+    btn.style.background = "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)";
+
     triggerBurst();
 }
 
@@ -69,7 +80,7 @@ function triggerBurst() {
     const x = window.innerWidth / 2;
     const y = window.innerHeight / 3;
     
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 90; i++) {
         const color = colors[Math.floor(Math.random() * colors.length)];
         particles.push(new Particle(x, y, color));
     }
