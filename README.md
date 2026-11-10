@@ -1,21 +1,11 @@
-# 🎆 Diwali Surprise ❤️
+# ✨ Special New Year Interactive Web Page
 
-Welcome to my special Diwali surprise website!
+A custom interactive web surprise built with HTML, CSS, and JavaScript, hosted via GitHub Pages. Featuring glassmorphism UI, custom dynamic typing effects, and particle fireworks animations. 🚀
 
-✨ A little surprise made with love.
-
-### 🌐 Visit Website
-[Click Here to Open the Surprise](https://aryankumarsingh102007-coder.github.io/)
-
-### 💝 Features
-- Special Diwali surprise
-- Beautiful animations
-- Personal surprise webpage
-
-### 🚀 Built With
-- HTML
-- CSS
-- JavaScript
+## 💻 Tech Stack
+* **HTML5 / CSS3** (Custom Glassmorphism styling & keyframe animations)
+* **JavaScript (ES6)** (Canvas particle engine & typewriter logic)
+* **GitHub Pages** (Hosting & deployment)
 
 ---
-Made with ❤️
+*Created with ❤️ & code.*
