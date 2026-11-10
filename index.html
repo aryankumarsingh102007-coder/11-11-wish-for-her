@@ -179,3 +179,82 @@
         };
 
         function showSecret() {
+            const secretBox = document.getElementById("secretBox");
+            secretBox.style.display = "block";
+            triggerBurst();
+        }
+
+        // Particle Fireworks Animation
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 6,
+                    y: (Math.random() - 0.5) * 6
+                };
+                this.alpha = 1;
+                this.friction = 0.96;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.015;
+            }
+        }
+
+        function triggerBurst() {
+            const colors = ['#f43f5e', '#38bdf8', '#fbbf24', '#a855f7', '#34d399'];
+            const x = window.innerWidth / 2;
+            const y = window.innerHeight / 3;
+            
+            for (let i = 0; i < 60; i++) {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        function initFireworks() {
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach((particle, index) => {
+                    if (particle.alpha > 0) {
+                        particle.update();
+                        particle.draw();
+                    } else {
+                        particles.splice(index, 1);
+                    }
+                });
+            }
+            animate();
+        }
+    </script>
+</body>
+</html>
