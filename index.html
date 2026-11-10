@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy New Year! ✨</title>
+
+    <!-- WhatsApp / Social Media Rich Preview Card Meta Tags -->
+    <meta property="og:title" content="A Special New Year Surprise! 🤓✨" />
+    <meta property="og:description" content="Is link par click karke dekho, ek secret message wait kar raha hai..." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop" />
+    <meta property="og:type" content="website" />
+
     <style>
         * {
             margin: 0;
@@ -26,23 +33,23 @@
         /* Ambient Glow Background */
         .bg-glow {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(244, 63, 94, 0.3) 0%, rgba(0,0,0,0) 70%);
-            top: 20%;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, rgba(244, 63, 94, 0.35) 0%, rgba(0,0,0,0) 70%);
+            top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
             pointer-events: none;
         }
 
-        /* Glassmorphism Card */
+        /* Glassmorphism Container Card */
         .card {
             position: relative;
             z-index: 10;
             width: 90%;
             max-width: 420px;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 24px;
             padding: 32px 24px;
@@ -50,211 +57,9 @@
             -webkit-backdrop-filter: blur(16px);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
             text-align: center;
-            transition: transform 0.3s ease;
         }
 
         .badge {
             display: inline-block;
             padding: 6px 16px;
-            background: rgba(244, 63, 94, 0.15);
-            border: 1px solid rgba(244, 63, 94, 0.3);
-            border-radius: 50px;
-            color: #fb7185;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #fda4af 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        /* Typing Effect Container */
-        .typewriter-text {
-            font-size: 1rem;
-            color: #cbd5e1;
-            line-height: 1.6;
-            min-height: 80px;
-            margin-bottom: 24px;
-        }
-
-        /* Interactive Button */
-        .reveal-btn {
-            background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
-            color: #ffffff;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(225, 29, 72, 0.4);
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .reveal-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Hidden Secret Section */
-        .secret-box {
-            display: none;
-            margin-top: 24px;
-            padding: 16px;
-            border-radius: 16px;
-            background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            color: #38bdf8;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="bg-glow"></div>
-    <canvas id="fireworksCanvas"></canvas>
-
-    <div class="card">
-        <div class="badge">Special Surprise 🤓</div>
-        <h1>Happy New Year! ✨</h1>
-        
-        <div class="typewriter-text" id="typedText"></div>
-
-        <button class="reveal-btn" onclick="showSecret()">Tap For A Secret 🎁</button>
-
-        <div class="secret-box" id="secretBox">
-            <b>Final Note:</b> Padhai acchi chalne do aur thoda kam gussa kiya karo! 2027 ho ya koi bhi saal, stay awesome! 🚀✨
-        </div>
-    </div>
-
-    <script>
-        // Dynamic Typing Effect
-        const message = "Naya saal toh aa gaya, par tere bina baat ke lecture dena aur har baat pe chashma thik karke gussa hona bilkul nahi badla! 🤓😂";
-        let index = 0;
-        const speed = 40;
-
-        function typeWriter() {
-            if (index < message.length) {
-                document.getElementById("typedText").innerHTML += message.charAt(index);
-                index++;
-                setTimeout(typeWriter, speed);
-            }
-        }
-
-        window.onload = () => {
-            typeWriter();
-            initFireworks();
-        };
-
-        function showSecret() {
-            const secretBox = document.getElementById("secretBox");
-            secretBox.style.display = "block";
-            triggerBurst();
-        }
-
-        // Particle Fireworks Animation
-        const canvas = document.getElementById('fireworksCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                this.velocity = {
-                    x: (Math.random() - 0.5) * 6,
-                    y: (Math.random() - 0.5) * 6
-                };
-                this.alpha = 1;
-                this.friction = 0.96;
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-                ctx.restore();
-            }
-
-            update() {
-                this.velocity.x *= this.friction;
-                this.velocity.y *= this.friction;
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-                this.alpha -= 0.015;
-            }
-        }
-
-        function triggerBurst() {
-            const colors = ['#f43f5e', '#38bdf8', '#fbbf24', '#a855f7', '#34d399'];
-            const x = window.innerWidth / 2;
-            const y = window.innerHeight / 3;
-            
-            for (let i = 0; i < 60; i++) {
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particles.push(new Particle(x, y, color));
-            }
-        }
-
-        function initFireworks() {
-            function animate() {
-                requestAnimationFrame(animate);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                particles.forEach((particle, index) => {
-                    if (particle.alpha > 0) {
-                        particle.update();
-                        particle.draw();
-                    } else {
-                        particles.splice(index, 1);
-                    }
-                });
-            }
-            animate();
-        }
-    </script>
-</body>
-</html>
+            background:
