@@ -7,7 +7,7 @@
     
     <!-- Open Graph for WhatsApp Rich Preview -->
     <meta property="og:title" content="A Special New Year Surprise! 🤓✨" />
-    <meta property="og:description" content="Is link par click karke dekho, ek secret message wait kar raha hai..." />
+    <meta property="og:description" content="Is link par click karke dekho, ek secret music aur message wait kar raha hai..." />
     <meta property="og:image" content="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop" />
     <meta property="og:type" content="website" />
 
@@ -18,13 +18,19 @@
     <div class="bg-glow"></div>
     <canvas id="fireworksCanvas"></canvas>
 
+    <!-- Background Audio (A soothing, copyright-free instrumental or cute tune) -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-a-happy-day-256.mp3" type="audio/mp3">
+    </audio>
+
     <div class="card">
         <div class="badge">Special Surprise 🤓</div>
         <h1>Happy New Year! ✨</h1>
         
         <div class="typewriter-text" id="typedText"></div>
 
-        <button class="reveal-btn" onclick="showSecret()">Tap For Secret Message 🎁</button>
+        <!-- Start Button for Music & Animation -->
+        <button class="reveal-btn" id="startBtn" onclick="startExperience()">Play Music & Open 🎶</button>
 
         <div class="secret-box" id="secretBox">
             <b>Final Note:</b> Padhai acchi chalne do aur thoda kam gussa kiya karo! New Year ho ya koi bhi saal, stay awesome! 🚀✨
