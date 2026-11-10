@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy New Year! ✨</title>
+    <title>A Special New Year Greeting ✨</title>
     
     <!-- Open Graph for WhatsApp Rich Preview -->
-    <meta property="og:title" content="A Special New Year Surprise! 🤓✨" />
-    <meta property="og:description" content="Is link par click karke dekho, ek secret music aur message wait kar raha hai..." />
+    <meta property="og:title" content="A Special New Year Greeting For You! 🤓✨" />
+    <meta property="og:description" content="Tap to open your digital greeting card..." />
     <meta property="og:image" content="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop" />
     <meta property="og:type" content="website" />
 
@@ -18,22 +18,29 @@
     <div class="bg-glow"></div>
     <canvas id="fireworksCanvas"></canvas>
 
-    <!-- Background Audio (A soothing, copyright-free instrumental or cute tune) -->
+    <!-- Background Audio -->
     <audio id="bgMusic" loop>
         <source src="https://assets.mixkit.co/music/preview/mixkit-a-happy-day-256.mp3" type="audio/mp3">
     </audio>
 
-    <div class="card">
-        <div class="badge">Special Surprise 🤓</div>
-        <h1>Happy New Year! ✨</h1>
-        
-        <div class="typewriter-text" id="typedText"></div>
+    <!-- 3D Interactive Greeting Card Container -->
+    <div class="card-container" id="cardContainer" onclick="openCard()">
+        <div class="greeting-card" id="greetingCard">
+            <!-- Card Front -->
+            <div class="card-face card-front">
+                <div class="badge">Special Surprise 🤓</div>
+                <h1>Happy New Year! ✨</h1>
+                <p class="tap-hint">Tap to Open Card 💌</p>
+            </div>
 
-        <!-- Start Button for Music & Animation -->
-        <button class="reveal-btn" id="startBtn" onclick="startExperience()">Play Music & Open 🎶</button>
-
-        <div class="secret-box" id="secretBox">
-            <b>Final Note:</b> Padhai acchi chalne do aur thoda kam gussa kiya karo! New Year ho ya koi bhi saal, stay awesome! 🚀✨
+            <!-- Card Inside (Hidden until opened) -->
+            <div class="card-face card-back">
+                <h2>Dear Chasmish 🤍</h2>
+                <div class="typewriter-text" id="typedText"></div>
+                <div class="secret-box" id="secretBox">
+                    <b>A Personal Note:</b> Pata hai, tera yeh chashma laga ke serious hoke baithna aur mujhe guide karna mujhe andar se bohot motivate karta hai. Chahe kitna bhi lad lein hum, par tu mere liye special hai. Apna dhyan rakha kar aur all the best for everything! 🚀✨
+                </div>
+            </div>
         </div>
     </div>
 
