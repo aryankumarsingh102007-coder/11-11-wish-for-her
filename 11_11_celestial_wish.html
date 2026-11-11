@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11:11 • Make A Celestial Wish ✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel Decorative', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        cursive: ['Sacramento', 'cursive']
+                    },
+                    colors: {
+                        starlight: '#FFFDF0',
+                        solargold: '#FFD700',
+                        rosegold: '#F4A261',
+                        astralviolet: '#7B2CBF',
+                        cosmicdeep: '#070314',
+                        nebula: '#1A0B2E'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #070314;
+            color: #FFFDF0;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Interactive Space Canvas */
+        #celestial-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Portal Containers */
+        .glass-orb {
+            background: radial-gradient(135% 135% at 50% 10%, rgba(255, 255, 255, 0.12) 0%, rgba(123, 44, 191, 0.08) 50%, rgba(7, 3, 20, 0.6) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 
+                        inset 0 0 25px rgba(255, 215, 0, 0.1),
+                        0 0 30px rgba(123, 44, 191, 0.25);
+        }
+
+        .gold-glow-text {
+            background: linear-gradient(135deg, #FFFDF0 0%, #FFD700 45%, #F4A261 80%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+        }
+
+        .aurora-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            animation: rotateRing 18s linear infinite;
+        }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 15px rgba(255,215,0,0.5)); }
+            50% { transform: scale(1.03); opacity: 1; filter: drop-shadow(0 0 30px rgba(255,215,0,0.9)); }
+        }
+
+        .animate-pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar for Wish Modal */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(7, 3, 20, 0.8);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between items-center relative px-4 py-6 overflow-hidden">
+
+    <!-- Deep Space Celestial Canvas -->
+    <canvas id="celestial-canvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-4xl flex justify-between items-center z-10 py-2">
+        <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-solargold animate-ping"></span>
+            <span class="text-xs tracking-widest text-solargold font-cinzel font-semibold uppercase opacity-90">
+                11:11 Celestial Portal
+            </span>
+        </div>
+
+        <button id="audio-btn" class="glass-orb px-4 py-2 rounded-full text-xs font-semibold text-solargold hover:text-white transition-all duration-300 flex items-center space-x-2 border border-solargold/40 hover:border-solargold">
+            <span id="audio-icon">✨</span>
+            <span id="audio-label">Ambient Sound: Off</span>
+        </button>
+    </header>
+
+    <!-- Main Content Display -->
+    <main class="w-full max-w-xl text-center z-10 flex flex-col items-center my-auto py-6">
+        
+        <!-- Live Precision Clock Orb Container -->
+        <div class="glass-orb w-full p-8 md:p-10 rounded-full sm:rounded-[3rem] relative overflow-hidden my-4 border border-solargold/30 transform transition-all duration-700 hover:border-solargold/60">
+            
+            <!-- Aurora Aesthetic Orbs -->
+            <div class="aurora-ring w-[120%] h-[120%] -top-[10%] -left-[10%] opacity-20 pointer-events-none"></div>
+            <div class="aurora-ring w-[140%] h-[140%] -top-[20%] -left-[20%] opacity-15 pointer-events-none" style="animation-direction: reverse; animation-duration: 25s;"></div>
+
+            <!-- Current Angel Hour Tag -->
+            <p class="text-xs md:text-sm font-cinzel tracking-widest text-solargold/80 uppercase mb-3">
+                Cosmic Alignment Time
+            </p>
+
+            <!-- Real-Time Clock Display -->
+            <div class="flex items-baseline justify-center space-x-2 my-2">
+                <h1 id="clock-main" class="text-5xl sm:text-7xl font-bold font-cinzel gold-glow-text tracking-wider">
+                    11:11
+                </h1>
+                <span id="clock-sec" class="text-lg sm:text-2xl font-mono text-rosegold/90 font-light">
+                    :00
+                </span>
+                <span id="clock-ampm" class="text-xs sm:text-sm font-semibold text-purple-300 uppercase tracking-widest ml-1">
+                    AM
+                </span>
+            </div>
+
+            <!-- Countdown to Next 11:11 -->
+            <div id="countdown-wrapper" class="mt-4 pt-4 border-t border-solargold/10 text-xs text-purple-200/90 font-mono tracking-wide flex items-center justify-center space-x-2">
+                <span>⏱ Next 11:11 Portal in:</span>
+                <span id="countdown-timer" class="font-bold text-solargold">00h 00m 00s</span>
+            </div>
+        </div>
+
+        <!-- Interactive Wish Crystal Trigger Button -->
+        <div class="mt-4 flex flex-col items-center space-y-3 w-full">
+            <button id="trigger-wish-btn" class="relative group w-full max-w-sm py-4 px-8 rounded-full bg-gradient-to-r from-solargold via-rosegold to-solargold text-cosmicdeep font-cinzel font-extrabold text-sm md:text-base tracking-widest shadow-2xl transition-all duration-500 transform hover:scale-105 hover:shadow-solargold/50 active:scale-95 animate-pulse-glow">
+                <span class="relative z-10 flex items-center justify-center space-x-2">
+                    <span>✨ TOUCH TO REVEAL WISH ✨</span>
+                </span>
+                <div class="absolute inset-0 rounded-full bg-white/40 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </button>
+            <p class="text-[11px] text-purple-200/60 font-light tracking-widest uppercase">
+                Tap anywhere on screen to drop stardust stars
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Footer Quote -->
+    <footer class="z-10 text-center text-[11px] text-solargold/60 font-cinzel tracking-widest py-2">
+        "When the universe aligns, so do our deepest heartbeats." ✨
+    </footer>
+
+    <!-- Ethereal Glass Wish Modal Card -->
+    <div id="wish-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-700">
+        <div id="modal-card" class="glass-orb w-full max-w-lg rounded-3xl p-6 sm:p-10 relative border-2 border-solargold/50 shadow-2xl transform scale-90 transition-all duration-700 my-auto">
+            
+            <!-- Close Modal -->
+            <button id="close-modal" class="absolute top-5 right-5 text-solargold/80 hover:text-white text-lg w-9 h-9 rounded-full flex items-center justify-center bg-nebula/60 hover:bg-astralviolet/50 border border-solargold/30 transition">
+                ✕
+            </button>
+
+            <!-- Modal Header -->
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-2 animate-bounce">🌌</div>
+                <h2 class="text-2xl sm:text-3xl font-cinzel font-bold gold-glow-text">11:11 • The Angel Hour</h2>
+                <p class="text-xs text-rosegold tracking-widest font-cinzel mt-1">AN ETHEREAL BLESSING FOR YOU</p>
+            </div>
+
+            <!-- Letter Content -->
+            <div class="space-y-4 text-sm text-gray-200 leading-relaxed max-h-[55vh] overflow-y-auto pr-2 text-left font-sans">
+                <p class="font-cursive text-3xl text-solargold">Hey Dost! ✨</p>
+                
+                <p class="text-purple-100/90 leading-relaxed">
+                    They say at <strong>11:11</strong>, the universe opens a secret portal just to listen to your heart's quietest dreams and silent prayers.
+                </p>
+                
+                <div class="bg-nebula/80 p-5 rounded-2xl border-l-4 border-solargold text-solargold/90 text-xs sm:text-sm font-light italic leading-relaxed shadow-inner">
+                    "May all your secret wishes, quiet prayers, and wildest dreams come true. May happiness, peace, and endless light always find their way to you!"
+                </div>
+
+                <p class="text-purple-100/90">
+                    Never forget how uniquely radiant you are. Whatever you are striving for, I hope the universe conspires to bring it to you effortlessly.
+                </p>
+                
+                <div class="pt-6 border-t border-solargold/20 text-right space-y-1">
+                    <p class="text-xs text-purple-300/80 font-cinzel tracking-wider">With love & warmth,</p>
+                    <p class="text-xs text-purple-300/80 font-cinzel tracking-wider">Your friend,</p>
+                    <p class="font-cursive text-4xl text-solargold font-semibold tracking-wide">Aryan ✨</p>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <button id="seal-btn" class="mt-6 w-full py-3.5 rounded-2xl bg-gradient-to-r from-solargold to-rosegold text-cosmicdeep font-cinzel font-bold hover:brightness-110 transition duration-300 shadow-xl tracking-widest text-xs uppercase">
+                💖 Receive Wish & Seal With Stars
+            </button>
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // --- 1. Background Interactive Starfield & Cursor Stardust ---
+        const canvas = document.getElementById('celestial-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let cursorParticles = [];
+        let shootingStars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+        }
+
+        function initStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 2500);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5 + 0.3,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.015 + 0.005,
+                    color: Math.random() > 0.4 ? '#FFFDF0' : '#FFD700'
+                });
+            }
+        }
+
+        function spawnShootingStar() {
+            if (Math.random() < 0.03) {
+                shootingStars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * (canvas.height / 2),
+                    length: Math.random() * 80 + 40,
+                    speed: Math.random() * 10 + 6,
+                    angle: Math.PI / 4,
+                    alpha: 1.0
+                });
+            }
+        }
+
+        function renderSpace() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Ambient background glow
+            const grad = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 10, canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height));
+            grad.addColorStop(0, 'rgba(26, 11, 46, 0.4)');
+            grad.addColorStop(1, 'rgba(7, 3, 20, 1)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Render twinkle stars
+            stars.forEach(s => {
+                s.alpha += s.speed;
+                if (s.alpha > 1 || s.alpha < 0) s.speed = -s.speed;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fillStyle = s.color;
+                ctx.globalAlpha = Math.max(0, Math.min(1, s.alpha));
+                ctx.fill();
+            });
+
+            // Render Shooting Stars
+            spawnShootingStar();
+            shootingStars.forEach((ss, idx) => {
+                ss.x += Math.cos(ss.angle) * ss.speed;
+                ss.y += Math.sin(ss.angle) * ss.speed;
+                ss.alpha -= 0.015;
+
+                if (ss.alpha <= 0) {
+                    shootingStars.splice(idx, 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(ss.x, ss.y);
+                    ctx.lineTo(ss.x - Math.cos(ss.angle) * ss.length, ss.y - Math.sin(ss.angle) * ss.length);
+                    ctx.strokeStyle = 'rgba(255, 215, 0, ' + ss.alpha + ')';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                }
+            });
+
+            // Render Tap/Cursor particles
+            cursorParticles.forEach((p, idx) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= 0.02;
+                p.size *= 0.97;
+
+                if (p.alpha <= 0) {
+                    cursorParticles.splice(idx, 1);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, Math.max(0.2, p.size), 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.alpha;
+                    ctx.fill();
+                }
+            });
+
+            ctx.globalAlpha = 1.0;
+            requestAnimationFrame(renderSpace);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        requestAnimationFrame(renderSpace);
+
+        // Tap to drop stars listener
+        window.addEventListener('pointerdown', (e) => {
+            const colors = ['#FFD700', '#FFFDF0', '#F4A261', '#7B2CBF', '#E0AAFF'];
+            for (let i = 0; i < 15; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 4 + 1;
+                cursorParticles.push({
+                    x: e.clientX,
+                    y: e.clientY,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    size: Math.random() * 3 + 1.5,
+                    alpha: 1.0,
+                    color: colors[Math.floor(Math.random() * colors.length)]
+                });
+            }
+        });
+
+        // --- 2. Web Audio Synthesizer (No external sound files) ---
+        let audioCtx = null;
+        let isAudioOn = false;
+        let ambientOsc = null;
+        let ambientGain = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playCelestialChime() {
+            initAudio();
+            const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
+            notes.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.1);
+
+                gain.gain.setValueAtTime(0, audioCtx.currentTime + idx * 0.1);
+                gain.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + idx * 0.1 + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + idx * 0.1 + 2.0);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(audioCtx.currentTime + idx * 0.1);
+                osc.stop(audioCtx.currentTime + idx * 0.1 + 2.2);
+            });
+        }
+
+        function toggleAudio() {
+            initAudio();
+            const icon = document.getElementById('audio-icon');
+            const label = document.getElementById('audio-label');
+
+            if (!isAudioOn) {
+                ambientOsc = audioCtx.createOscillator();
+                ambientGain = audioCtx.createGain();
+
+                ambientOsc.type = 'sine';
+                ambientOsc.frequency.setValueAtTime(146.83, audioCtx.currentTime); // D3 Warm Chord
+
+                ambientGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+                ambientGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 3);
+
+                ambientOsc.connect(ambientGain);
+                ambientGain.connect(audioCtx.destination);
+                ambientOsc.start();
+
+                isAudioOn = true;
+                icon.textContent = '🎶';
+                label.textContent = 'Ambient Sound: On';
+            } else {
+                if (ambientGain) {
+                    ambientGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 1);
+                    setTimeout(() => {
+                        if (ambientOsc) ambientOsc.stop();
+                    }, 1000);
+                }
+                isAudioOn = false;
+                icon.textContent = '✨';
+                label.textContent = 'Ambient Sound: Off';
+            }
+        }
+
+        document.getElementById('audio-btn').addEventListener('click', toggleAudio);
+
+        // --- 3. Clock & Countdown Timer Logic ---
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            let displayHours = hours % 12;
+            displayHours = displayHours ? displayHours : 12;
+
+            document.getElementById('clock-main').textContent = 
+                String(displayHours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+            document.getElementById('clock-sec').textContent = 
+                ':' + String(seconds).padStart(2, '0');
+            document.getElementById('clock-ampm').textContent = ampm;
+
+            // Calculate Countdown to Next 11:11
+            const next11 = new Date(now);
+            if (hours < 11 || (hours === 11 && minutes < 11)) {
+                next11.setHours(11, 11, 0, 0);
+            } else if (hours < 23 || (hours === 23 && minutes < 11)) {
+                next11.setHours(23, 11, 0, 0);
+            } else {
+                next11.setDate(next11.getDate() + 1);
+                next11.setHours(11, 11, 0, 0);
+            }
+
+            const diff = next11 - now;
+            const diffHrs = Math.floor(diff / (1000 * 60 * 60));
+            const diffMins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const diffSecs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown-timer').textContent = 
+                `${String(diffHrs).padStart(2, '0')}h ${String(diffMins).padStart(2, '0')}m ${String(diffSecs).padStart(2, '0')}s`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // --- 4. Modal Wish Card Interactions ---
+        const wishBtn = document.getElementById('trigger-wish-btn');
+        const modal = document.getElementById('wish-modal');
+        const modalCard = document.getElementById('modal-card');
+        const closeModalBtn = document.getElementById('close-modal');
+        const sealBtn = document.getElementById('seal-btn');
+
+        function showWish() {
+            playCelestialChime();
+
+            // Burst particle effect from button center
+            const rect = wishBtn.getBoundingClientRect();
+            for (let i = 0; i < 40; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 6 + 2;
+                cursorParticles.push({
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    size: Math.random() * 4 + 2,
+                    alpha: 1.0,
+                    color: '#FFD700'
+                });
+            }
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            modalCard.classList.remove('scale-90');
+            modalCard.classList.add('scale-100');
+        }
+
+        function hideWish() {
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalCard.classList.remove('scale-100');
+            modalCard.classList.add('scale-90');
+        }
+
+        wishBtn.addEventListener('click', showWish);
+        closeModalBtn.addEventListener('click', hideWish);
+        sealBtn.addEventListener('click', () => {
+            playCelestialChime();
+            hideWish();
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) hideWish();
+        });
+    </script>
+</body>
+</html>
