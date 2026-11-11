@@ -3,226 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>11:11 - Make A Wish ✨</title>
+    <title>11:11 • Make A Celestial Wish ✨</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel Decorative', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        cursive: ['Sacramento', 'cursive']
+                    },
+                    colors: {
+                        starlight: '#FFFDF0',
+                        solargold: '#FFD700',
+                        rosegold: '#F4A261',
+                        astralviolet: '#7B2CBF',
+                        cosmicdeep: '#070314',
+                        nebula: '#1A0B2E'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #030014;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
+            background-color: #070314;
+            color: #FFFDF0;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* Starry background */
-        .stars {
-            position: absolute;
+        /* Interactive Space Canvas */
+        #celestial-canvas {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
-                              radial-gradient(2px 2px at 40px 70px, #ffed4a, rgba(0,0,0,0)),
-                              radial-gradient(1px 1px at 90px 40px, #ffffff, rgba(0,0,0,0));
-            background-repeat: repeat;
-            background-size: 200px 200px;
-            opacity: 0.6;
-            animation: twinkle 5s infinite;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-            100% { opacity: 0.4; }
-        }
-
-        .container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 20px;
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .clock {
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, #ffed4a, #ff758c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(255, 237, 74, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: #c7c7d1;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-        }
-
-        /* Celestial Orb Button */
-        .orb-container {
-            margin: 30px auto;
-            position: relative;
-            width: 130px;
-            height: 130px;
-            cursor: pointer;
-        }
-
-        .orb {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffed4a, #ff758c, #6b11ff);
-            box-shadow: 0 0 40px rgba(255, 117, 140, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.5);
-            animation: pulse 3s infinite ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.3s ease;
-        }
-
-        .orb:hover {
-            transform: scale(1.08);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 117, 140, 0.5); }
-            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(255, 237, 74, 0.8); }
-        }
-
-        .orb-text {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 8px 12px;
-            border-radius: 20px;
-        }
-
-        /* Wish Card Modal */
-        .card {
-            background: rgba(20, 20, 35, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transform: translateY(20px);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-top: 20px;
-        }
-
-        .card.show {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .card h2 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #ffed4a;
-        }
-
-        .card p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #e2e2e9;
-            margin-bottom: 20px;
-        }
-
-        .signature {
-            font-style: italic;
-            color: #ff758c;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="stars"></div>
-
-    <div class="container">
-        <div class="clock" id="clock">11:11</div>
-        <div class="subtitle">The universe is listening. Make a wish. ✨</div>
-
-        <div class="orb-container" onclick="revealWish()">
-            <div class="orb">
-                <span class="orb-text">Tap Here</span>
-            </div>
-        </div>
-
-        <div class="card" id="wishCard">
-            <h2>Make a Wish ✨</h2>
-            <p>May all your secret dreams align, and may this magical moment bring a smile to your face today and always. You deserve all the happiness in the world!</p>
-            <div class="signature">— Aryan</div>
-        </div>
-    </div>
-
-    <script>
-        // Live Clock
-        function updateClock() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-            
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-            
-            document.getElementById('clock').innerText = `${hours}:${minutes}:${seconds}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // Web Audio Chime & Card Reveal
-        function playChime() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5 note
-                osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 1.5); // C6 note
-
-                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2);
-
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-
-                osc.start();
-                osc.stop(audioCtx.currentTime + 2);
-            } catch(e) {
-                console.log("Audio not supported or blocked");
-            }
-        }
-
-        function revealWish() {
-            playChime();
-            const card = document.getElementById('wishCard');
-            card.classList.toggle('show');
-        }
-    </script>
-</body>
-</html>
+        /* Glassmorphism Portal Containers */
+        .glass-orb {
+            background: radial-gradient(135% 135% at 50% 10%, rgba(255, 255, 255, 0.12) 0%, rgba(123, 44, 191, 0.08) 50%, rgba(7, 3, 20, 0.6) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 
+                        inset 0 0 25px rgba(255, 215, 0, 0.1),
+                        0 0 30
